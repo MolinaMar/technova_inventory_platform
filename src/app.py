@@ -1,1 +1,1 @@
-print('Hello Inventory')
+print('Hello TechNova Inventory')

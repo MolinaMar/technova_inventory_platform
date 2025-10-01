@@ -1,11 +1,25 @@
-name: CI/CD
+name: CI/CD Pipeline
 
-on: [push]
+on:
+  push:
+    branches: [ main, "sprint-*" ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Run sample test
-        run: echo "Pruebas ejecutadas correctamente"
+
+      # Configuración Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: pip install pytest
+
+      - name: Run Unit Tests
+        run: pytest tests/unit -q
